@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>EXIF</title>
+</head>
+
+<body>
+    
+<h1><%= title %></h1>
+<p><%= desc %></p>
+<img src="<%= image %>" width="500" height="600"/><br>
+<table style="width:100%" style="border: 1px">
+<tr>
+<td>Make: <%= make %></td>
+</tr>
+<tr>
+<td>Model: <%= model %></td>
+</tr>
+<tr>
+<td>Created on: <%= time %></td>
+</tr>
+<tr>
+<td>Location: <a href="<%= link %>">Map </a></td>
+</tr>
+
+
+</table>
+<button type='button'  onclick="location.href='/'">Home</button>
+
+
+</body>
+
+</html>

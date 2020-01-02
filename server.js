@@ -46,18 +46,14 @@ app.post('/fileupload', (req,res) => {
 				value['make'] = JSON.stringify(exifData.image.Make);
                 value['modle'] = JSON.stringify(exifData.image.Model);
                 value['time'] = JSON.stringify(exifData.exif.CreateDate);
-if (exifData.gps.GPSLatitudeRef == 'S') {
-  value['GPSLatitude'] = exifData.gps.GPSLatitude[0] + exifData.gps.GPSLatitude[1]/60 + exifData.gps.GPSLatitude[2]/60/60;
-                    value['GPSLatitude'] = '-' + value['GPSLatitude'];
-                } else
-                    value['GPSLatitude'] = exifData.gps.GPSLatitude[0] + exifData.gps.GPSLatitude[1] / 60 + exifData.gps.GPSLatitude[2]/60/60;
-
-                if (exifData.gps.GPSLongitudeRef == 'E') {
- value['GPSLongitude'] = exifData.gps.GPSLongitude[0] + exifData.gps.GPSLongitude[1] / 60 + exifData.gps.GPSLongitude[2]/60/60;
-                } else{
- value['GPSLongitude'] = exifData.gps.GPSLongitude[0] + exifData.gps.GPSLongitude[1] / 60 + exifData.gps.GPSLongitude[2]/60/60;
-                    value['GPSLongitude'] = '-' + value['GPSLongitude'];
-}
+		var ref = {'N': 1, 'E': 1, 'S': -1, 'W': -1};
+		console.log(ref[exifData.gps.GPSLatitudeRef]);
+		console.log(ref[exifData.gps.GPSLongitudeRef]);
+		value['GPSLatitude'] = (exifData.gps.GPSLatitude[0] + 
+		(exifData.gps.GPSLatitude[1]/60) + (exifData.gps.GPSLatitude[2]/3600))ref[exifData.gps.GPSLatitudeRef];
+		 value['GPSLongitude'] = (exifData.gps.GPSLongitude[0] + (exifData.gps.GPSLongitude[1]/60) + (exifData.gps.GPSLongitude[2]/3600)ref[exifData.gps.GPSLongitudeRef]);
+		console.log(value['GPSLatitude']);
+		console.log(value['GPSLongitude']);
 				
 				
     fs.readFile(filename, (err,data) => {
